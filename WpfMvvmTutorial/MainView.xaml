@@ -1,0 +1,62 @@
+﻿<Window x:Class="WpfMvvmTutorial.MainView"
+				xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				xmlns:local="clr-namespace:WpfMvvmTutorial"
+				mc:Ignorable="d"
+				Title="MainWindow" Height="350" Width="525"
+				d:DataContext="{d:DesignInstance Type={x:Type local:MainViewModel}, IsDesignTimeCreatable=True}">
+		<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Label Grid.Row="0" Grid.Column="0" Content="First Name" />
+		<TextBox x:Name="FirstName" Grid.Row="0" Grid.Column="1" Text="{Binding EditingName.FirstName}" />
+
+		<Label Grid.Row="1" Grid.Column="0" Content="Last Name" />
+		<TextBox x:Name="LastName" Grid.Row="1" Grid.Column="1" Text="{Binding EditingName.LastName,UpdateSourceTrigger=PropertyChanged}" />
+
+		<Label Grid.Row="2"
+					 Grid.Column="0"
+					 Content="Full Name" />
+		<TextBlock x:Name="FullName"
+						 Grid.Row="2"
+						 Grid.Column="1"
+						 Text="{Binding EditingName.FullName,UpdateSourceTrigger=PropertyChanged}" />
+
+		<Button Grid.Row="3" Grid.ColumnSpan="2" x:Name="Submit" Content="Submit" Margin="5" Command="{Binding SubmitCommand}"/>
+
+		<DataGrid Grid.Row="4" Grid.ColumnSpan="2" ItemsSource="{Binding NameCollection}" SelectedItem="{Binding SelectedName}" AutoGenerateColumns="False" Margin="2">
+			<!--
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal">
+						<Label Content="{Binding LastName}" />
+						<Label Content=", " />
+						<Label Content="{Binding FirstName}" />
+					</StackPanel>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+			-->
+			<DataGrid.Columns>
+				<DataGridTextColumn Binding="{Binding FirstName}"
+														Header="First" />
+				<DataGridTextColumn Binding="{Binding LastName}"
+														Header="Last" />
+			</DataGrid.Columns>
+		</DataGrid>
+
+		<Button Grid.Row="5" Grid.Column="0" Content="Delete"
+						Command="{Binding DeleteCommand}" />
+	</Grid>
+</Window>
