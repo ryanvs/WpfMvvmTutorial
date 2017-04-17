@@ -56,8 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ObservableObject.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="ValidationTemplate.cs" />
     <Page Include="MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

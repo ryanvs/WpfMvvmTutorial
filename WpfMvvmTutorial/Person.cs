@@ -12,7 +12,12 @@ namespace WpfMvvmTutorial
     public class Person : INotifyPropertyChanged, INotifyDataErrorInfo
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public Person()
+        {
+            // Trigger validation
+            _validationTemplate = new ValidationTemplate(this);
+        }
 
         private string firstName;
 
@@ -45,17 +50,35 @@ namespace WpfMvvmTutorial
             get { return string.Format("{0} {1}", FirstName, LastName); }
         }
 
+        #region Validation
+        private ValidationTemplate _validationTemplate;
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged
+        {
+            add { _validationTemplate.ErrorsChanged += value; }
+            remove { _validationTemplate.ErrorsChanged -= value; }
+        }
+
+        public string Error
+        {
+            get { return _validationTemplate.Error; }
+        }
+
         public bool HasErrors
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return _validationTemplate.HasErrors; }
+        }
+
+        public string this[string columnName]
+        {
+            get { return _validationTemplate[columnName]; }
         }
 
         public IEnumerable GetErrors(string propertyName)
         {
-            throw new NotImplementedException();
+            return _validationTemplate.GetErrors(propertyName);
         }
+
+        #endregion
     }
 }

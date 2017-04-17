@@ -29,14 +29,16 @@
 		<Label Grid.Row="2"
 					 Grid.Column="0"
 					 Content="Full Name" />
+		<!-- NOTE: The UpdateSourceTrigger=PropertyChanged in the Binding causes the property to be updated as the user types -->
 		<TextBlock x:Name="FullName"
 						 Grid.Row="2"
 						 Grid.Column="1"
+						 VerticalAlignment="Center"
 						 Text="{Binding EditingName.FullName,UpdateSourceTrigger=PropertyChanged}" />
 
 		<Button Grid.Row="3" Grid.ColumnSpan="2" x:Name="Submit" Content="Submit" Margin="5" Command="{Binding SubmitCommand}"/>
 
-		<DataGrid Grid.Row="4" Grid.ColumnSpan="2" ItemsSource="{Binding NameCollection}" SelectedItem="{Binding SelectedName}" AutoGenerateColumns="False" Margin="2">
+		<DataGrid Grid.Row="4" Grid.ColumnSpan="2" ItemsSource="{Binding NameCollection}" SelectedItem="{Binding SelectedName}" AutoGenerateColumns="False" Margin="2" HorizontalGridLinesBrush="LightGray" VerticalGridLinesBrush="LightGray">
 			<!--
 			<ListView.ItemTemplate>
 				<DataTemplate>
